@@ -11,40 +11,67 @@ package serverwofacade;
  * @author sarun
  */
 public class ScheduleServer {
-    public void startBooting(){
+    private static ScheduleServer singleton = null;
+    private ScheduleServer() {}
+    public static ScheduleServer getSingleton() {
+        if (singleton == null) {
+            singleton = new ScheduleServer();
+        }
+        return singleton;
+    }
+    
+    public void startServer() {
+        startBooting();
+	readSystemConfigFile();
+	init();
+	initializeContext();
+	initializeListeners();
+	createSystemObjects();
+    }
+    
+    public void shutdownServer() {
+        releaseProcesses();
+	destory();
+	destroySystemObjects();
+	destoryListeners();
+	destoryContext();
+	shutdown();
+    }
+    
+    private void startBooting(){
 	System.out.println("Starts booting...");
     }
-    public void readSystemConfigFile(){
+    private void readSystemConfigFile(){
         System.out.println("Reading system config files...");
     }
-    public void init(){
+    private void init(){
 	System.out.println("Initializing...");
     }
-    public void initializeContext(){
+    private void initializeContext(){
 	System.out.println("Initializing context...");
     }
-    public void initializeListeners(){
+    private void initializeListeners(){
 	System.out.println("Initializing listeners...");
     }
-    public void createSystemObjects(){
+    private void createSystemObjects(){
         System.out.println("Creating system objects...");
     }
-    public void releaseProcesses(){
+    private void releaseProcesses(){
         System.out.println("Releasing processes...");
     }
-    public void destory(){
+    private void destory(){
         System.out.println("Destorying...");
     }
-    public void destroySystemObjects(){
+    private void destroySystemObjects(){
 	System.out.println("Destroying system objects...");
     }
-    public void destoryListeners(){
+    private void destoryListeners(){
         System.out.println("Destroying listeners...");
     }
-    public void destoryContext(){
+    private void destoryContext(){
         System.out.println("Destroying context...");
     }
-    public void shutdown(){
+    private void shutdown(){
         System.out.println("Shutting down...");
     }
 }
